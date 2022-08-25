@@ -36,7 +36,7 @@ func NewFactory() component.ExporterFactory {
 	return component.NewExporterFactory(
 		typeStr,
 		createDefaultConfig,
-		component.WithMetricsExporter(createMetricsExporter))
+		component.WithMetricsExporter(createMetricsExporter, component.StabilityLevelBeta))
 }
 
 func createMetricsExporter(_ context.Context, set component.ExporterCreateSettings,

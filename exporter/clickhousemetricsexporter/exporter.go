@@ -98,7 +98,7 @@ func NewPrwExporter(cfg *Config, set component.ExporterCreateSettings) (*PrwExpo
 
 // Start creates the prometheus client
 func (prwe *PrwExporter) Start(_ context.Context, host component.Host) (err error) {
-	prwe.client, err = prwe.clientSettings.ToClient(host.GetExtensions(), prwe.settings)
+	prwe.client, err = prwe.clientSettings.ToClient(host, prwe.settings)
 	return err
 }
 
