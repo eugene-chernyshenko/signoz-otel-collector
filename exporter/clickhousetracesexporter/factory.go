@@ -48,7 +48,7 @@ func NewFactory() component.ExporterFactory {
 }
 
 func createTracesExporter(
-	_ context.Context,
+	ctx context.Context,
 	params component.ExporterCreateSettings,
 	cfg config.Exporter,
 ) (component.TracesExporter, error) {
@@ -59,8 +59,9 @@ func createTracesExporter(
 	}
 
 	return exporterhelper.NewTracesExporter(
-		cfg,
+		ctx,
 		params,
+		cfg,
 		oce.pushTraceData,
 		exporterhelper.WithShutdown(func(context.Context) error {
 			if closer, ok := oce.Writer.(io.Closer); ok {

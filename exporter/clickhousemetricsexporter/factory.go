@@ -39,7 +39,7 @@ func NewFactory() component.ExporterFactory {
 		component.WithMetricsExporter(createMetricsExporter, component.StabilityLevelBeta))
 }
 
-func createMetricsExporter(_ context.Context, set component.ExporterCreateSettings,
+func createMetricsExporter(ctx context.Context, set component.ExporterCreateSettings,
 	cfg config.Exporter) (component.MetricsExporter, error) {
 
 	prwCfg, ok := cfg.(*Config)
@@ -59,8 +59,9 @@ func createMetricsExporter(_ context.Context, set component.ExporterCreateSettin
 	// without considering this limitation, we experience
 	// "out of order samples" errors.
 	exporter, err := exporterhelper.NewMetricsExporter(
-		cfg,
+		ctx,
 		set,
+		cfg,
 		prwe.PushMetrics,
 		exporterhelper.WithTimeout(prwCfg.TimeoutSettings),
 		exporterhelper.WithQueue(exporterhelper.QueueSettings{
